@@ -18,6 +18,8 @@ public:
 	Film(QString id, QString title, QString dir, QString length, QDate relDate);
 	Film(QStringList & propList);
 
+	const QString getID(void) const;
+	const QString getTitle(void) const;
 	virtual const QString toString(bool labeled, QString sepChar = " ") const = 0;
 };
 

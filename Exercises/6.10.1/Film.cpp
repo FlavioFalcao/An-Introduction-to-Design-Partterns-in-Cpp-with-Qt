@@ -23,6 +23,16 @@ Film::Film(QStringList & propList)
 	m_ReleaseDate = QDate::fromString(propList.takeFirst());
 }
 
+const QString Film::getID(void) const
+{
+	return m_FilmID;
+}
+
+const QString Film::getTitle(void) const
+{
+	return 	m_Title;
+}
+
 const QString Film::toString(bool labeled, QString sepChar) const
 {
 	if (labeled)
