@@ -15,13 +15,14 @@ const QString FilmList::toString(void) const
 	return str;
 }
 
-const Film * const FilmList::findFilm(const QString & id) const
+Film * FilmList::findFilm(const QString & id) const
 {
 	int listSize = this->size();
 	for (int i = 0; i < listSize; ++i)
 	{
 		if ((*this)[i]->getID() == id)
 		{
+			//qDebug() << "findFilm() found" << endl;
 			return (*this)[i];
 		}
 	}
@@ -49,19 +50,10 @@ void FilmList::addFilm(Film * & film)
 
 void FilmList::removeFilm(const QString & filmID)
 {
-	unsigned listSize = this->size();
-	for (int i = 0; i < static_cast<int>(listSize); ++i)
+	Film * pfilm;
+	while (pfilm = findFilm(filmID))
 	{
-		if ((*this)[i]->getID() == filmID)
-		{
-			delete (*this)[i];
-			(*this)[i] = nullptr;
-		}
+		//qDebug() << "removeFilm() removing" << endl;
+		removeAll(pfilm);
 	}
-	this->clearDeleted();
-}
-
-void FilmList::clearDeleted(void)
-{
-	while (this->removeOne(nullptr)) {}
 }
