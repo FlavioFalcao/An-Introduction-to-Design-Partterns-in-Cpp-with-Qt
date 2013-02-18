@@ -2,22 +2,23 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <cstdlib>
 
 PuzzleWindow::PuzzleWindow(QWidget *parent) :
 	QMainWindow(parent)
 {
-	QPushButton exitButton("Exit");
-	//exitButton.connect(&exitButton, SIGNAL(clicked()), nullptr, SLOT(exit()));
-	QHBoxLayout hbl;
-	QPushButton button2("second button");
-	hbl.addWidget(&exitButton);
-	hbl.addWidget(&button2);
 
+
+	QHBoxLayout *hbl = new QHBoxLayout;
+	QPushButton *exitButton = new QPushButton("Exit");
+	hbl->addWidget(exitButton);
+	hbl->addWidget(new QPushButton("second button"));
+	exitButton->connect(exitButton, SIGNAL(clicked()), nullptr, exit(EXIT_FAILURE));
 	qDebug() << "create widget";
-	QWidget widget;
-	widget.setLayout(&hbl);
+	QWidget *widget = new QWidget;
+	widget->setLayout(hbl);
 
-	setCentralWidget(&widget);
+	setCentralWidget(widget);
 
 	qDebug() << "after setCentralWidget widget";
 
