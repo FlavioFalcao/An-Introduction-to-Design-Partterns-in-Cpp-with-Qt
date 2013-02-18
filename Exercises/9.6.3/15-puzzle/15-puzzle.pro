@@ -9,7 +9,8 @@ SOURCES += \
     main.cpp \
     puzzlemodel.cpp \
     tile.cpp \
-    puzzlewindow.cpp
+    puzzlewindow.cpp \
+    puzzleview.cpp
 
 message("CONDITION:")
 win32-msvc2010 {
@@ -55,4 +56,5 @@ win32-msvc2010 {
 HEADERS += \
     puzzlemodel.h \
     tile.h \
-    puzzlewindow.h
+    puzzlewindow.h \
+    puzzleview.h

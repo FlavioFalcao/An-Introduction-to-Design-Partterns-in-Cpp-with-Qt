@@ -1,26 +1,42 @@
 #include "puzzlewindow.h"
 #include <QPushButton>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QDebug>
 #include <cstdlib>
+#include "puzzleview.h"
+#include "puzzlemodel.h"
 
 PuzzleWindow::PuzzleWindow(QWidget *parent) :
 	QMainWindow(parent)
 {
+	// shuffle button
+	QPushButton *shuffleButton = new QPushButton("Shuffle");
+	shuffleButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	// quit button
+	QPushButton *exitButton = new QPushButton("quit");
+	exitButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	exitButton->connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
 
+	// control buttons
+	QVBoxLayout *buttons = new QVBoxLayout;
+	buttons->addStretch(2);
+	buttons->addWidget(shuffleButton);
+	buttons->addWidget(exitButton);
 
-	QHBoxLayout *hbl = new QHBoxLayout;
-	QPushButton *exitButton = new QPushButton("Exit");
-	hbl->addWidget(exitButton);
-	hbl->addWidget(new QPushButton("second button"));
-	exitButton->connect(exitButton, SIGNAL(clicked()), nullptr, exit(EXIT_FAILURE));
-	qDebug() << "create widget";
-	QWidget *widget = new QWidget;
-	widget->setLayout(hbl);
+	// game view
+	PuzzleView *pView = new PuzzleView(new PuzzleModel());
 
-	setCentralWidget(widget);
+	// central layout
+	QHBoxLayout *puzzle = new QHBoxLayout();
+	puzzle->addWidget(pView);
+	puzzle->addLayout(buttons);
 
-	qDebug() << "after setCentralWidget widget";
+	// central widget
+	QWidget *cWidget = new QWidget();
+	cWidget->setLayout(puzzle);
+
+	this->setCentralWidget(cWidget);
 
 	setWindowTitle("15 Puzzle");
 }

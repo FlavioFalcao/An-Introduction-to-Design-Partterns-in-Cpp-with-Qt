@@ -10,10 +10,6 @@ private:
 
 public:
 	explicit Tile(int tileNumber, QWidget *parent = 0);
-
-signals:
-	
-public slots:
 	
 };
 
